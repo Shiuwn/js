@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        .container{
+            height:1000px;
+            width:920px;
+            border:1px solid #ccc;
+            margin:0 auto;
+        }
+        .inner{
+            display: inline-block;
+            width:1px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+    </div>
+    <script>
+        function randomRange(min,max){
+            let range = max - min;
+            // 转换进制
+            let tens = Math.pow(10,String(range).length);
+
+            let step = (tens/range)
+            let gen = (Math.random()*tens);
+
+            return (min+Math.floor(gen/step));
+        }
+        var str ='';
+        var randomHeight;
+        var sum =0;
+        for(var i = 0;i<90000;i++){
+            randomHeight = randomRange(5,18)
+            sum+=randomHeight;
+            str += `<div class="inner" style="height:${randomHeight*50}px"></div>`
+        }
+        console.log(sum/90000)
+        var container = document.querySelector('.container');
+        container.innerHTML = (str);
+        // console.log(randomRange(1,10))
+
+        
+    </script>
+</body>
+</html>
