@@ -1,6 +1,37 @@
 (function(){
-  function Module(){ // 模块对象
-    
+  function Module(domId,fn){ // 模块对象
+    this.domId = domId;
+    this.data = null;
+    this.status = 'beforeCreated';
+    this.callbacks = [];
+    var self = this;
+    function render(data) {
+      if(this.status =='beforeCreated'){
+        setTimeout(function(){
+          self.data = data;
+          self.status = 'created'
+          for(var i=0;i<self.callbacks;i++){
+          self.callbacks[i](self.data); 
+          }
+        });   
+      }  
+    }
+    function failed(e){
+      setTimeout(function(){
+      console.log(e); 
+      });
+    }
+    fn(render,failed);
+    Module.prototype.created = function(cb){
+      this.callbacks.push(cb);
+    }
+    Module.prototype.before = function(fn){
+      fn.call(this);
+    }
+    Module.prototype.plugins = function(pluginsList){
+      
+    }
+
   }
   // 继承实现
   function Extends(newObj,interfaceObj){
